@@ -1,7 +1,11 @@
 import mongoose from 'mongoose';
 
-interface Lane {}
+export interface Lane {
+  number: number;
+}
 
-const laneSchema = new mongoose.Schema<Lane>({});
+const laneSchema = new mongoose.Schema<Lane>({
+  number: { type: Number, required: true, unique: true },
+});
 
 export const laneModel = mongoose.model<Lane>('Lane', laneSchema);

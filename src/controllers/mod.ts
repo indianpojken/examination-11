@@ -1,1 +1,1 @@
-export * as examplesController from './examples.controller';
+export * as bookingsController from './bookings.controller';

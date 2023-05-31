@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { examplesRoute } from './routes/examples.route';
+import { bookingsRoute } from './routes/bookings.route';
 
 export const routes = Router();
 
-routes.use('/examples', examplesRoute);
+routes.use('/bookings', bookingsRoute);

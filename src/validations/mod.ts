@@ -1,1 +1,1 @@
-export * as examplesValidation from './examples.validation';
+export * as bookingsValidation from './bookings.validation';

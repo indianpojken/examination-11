@@ -7,7 +7,7 @@ function formatZodError(error: z.ZodError) {
   return error.errors.map((e) => ({ [e.path.at(1) as string]: e.message }));
 }
 
-export function validate(validation: z.AnyZodObject) {
+export function validate(validation: z.ZodSchema) {
   return async (request: Request, response: Response, next: NextFunction) => {
     try {
       await validation.parseAsync(request);
