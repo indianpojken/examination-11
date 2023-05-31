@@ -35,6 +35,17 @@ async function availableLanes(from: Date, to: Date) {
   return await laneModel.find<Lane>({ _id: { $nin: occupiedLanes } });
 }
 
+export async function getBookingByNumber(bookingNumber: string) {
+  return await bookingModel
+    .findOne({ bookingNumber })
+    .populate<{ lanes: Lane[] }>('lanes')
+    .orFail(
+      new ApiError(404, {
+        message: `No booking with the number: '${bookingNumber}' was found`,
+      })
+    );
+}
+
 export async function createBooking(
   booking: z.infer<typeof bookingsValidation.book>
 ): Promise<Booking> {
@@ -59,50 +70,27 @@ export async function createBooking(
   };
 }
 
-export async function registerBook(
+export async function addBooking(
   booking: z.infer<typeof bookingsValidation.book>
 ) {
-  const from = dayjs(booking.dateTime).toDate();
-  const to = dayjs(booking.dateTime).add(PLAY_TIME, 'm').toDate();
-
-  const possibleLanes = await availableLanes(from, to);
-
-  if (possibleLanes.length < booking.lanes) {
-    throw new ApiError(409, {
-      message: 'Insufficient lanes available',
-    });
-  }
-
-  return await bookingModel.create<Booking>({
-    email: booking.email,
-    date: { from, to },
-    players: booking.players,
-    shoeSizes: booking.shoeSizes,
-    total: calculateTotal(booking.players, booking.lanes),
-    lanes: possibleLanes.slice(0, booking.lanes),
-  });
+  return await bookingModel.create<Booking>(await createBooking(booking));
 }
 
 export async function editBooking(
+  bookingNumber: string,
   booking: z.infer<typeof bookingsValidation.book>
 ) {
-  const from = dayjs(booking.dateTime).toDate();
-  const to = dayjs(booking.dateTime).add(PLAY_TIME, 'm').toDate();
+  await getBookingByNumber(bookingNumber); // lots of duplicate querys. Meh.
+  await bookingModel.findOneAndUpdate({ bookingNumber }, { lanes: [] });
 
-  const possibleLanes = await availableLanes(from, to);
+  return await bookingModel.findOneAndUpdate(
+    { bookingNumber },
+    await createBooking(booking),
+    { new: true }
+  );
+}
 
-  if (possibleLanes.length < booking.lanes) {
-    throw new ApiError(409, {
-      message: 'Insufficient lanes available',
-    });
-  }
-
-  return await bookingModel.create<Booking>({
-    email: booking.email,
-    date: { from, to },
-    players: booking.players,
-    shoeSizes: booking.shoeSizes,
-    total: calculateTotal(booking.players, booking.lanes),
-    lanes: possibleLanes.slice(0, booking.lanes),
-  });
+export async function removeBooking(bookingNumber: string) {
+  await getBookingByNumber(bookingNumber);
+  return await bookingModel.deleteOne({ bookingNumber });
 }

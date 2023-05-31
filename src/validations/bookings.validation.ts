@@ -7,7 +7,7 @@ import { NUMBER_OF_LANES, MAX_PLAYERS_PER_LANE } from '../misc/constants.misc';
 
 dayjs.extend(customParseFormat);
 
-export const book: ZodSchema = z
+export const book = z
   .object({
     body: z.object({
       email: z.string().email(),
@@ -41,4 +41,5 @@ export const book: ZodSchema = z
       path: ['body', 'players'],
       message: `The number of players exceeds the maximum player count (${MAX_PLAYERS_PER_LANE}) per lane.`,
     }
-  );
+  )
+  .transform((data) => data.body);

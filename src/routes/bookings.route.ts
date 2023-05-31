@@ -12,4 +12,14 @@ router.post(
   bookingsController.book
 );
 
+router.put(
+  '/:bookingNumber',
+  validationMiddleware.validate(bookingsValidation.book),
+  bookingsController.edit
+);
+
+router.get('/:bookingNumber', bookingsController.view);
+
+router.delete('/:bookingNumber', bookingsController.remove);
+
 export { router as bookingsRoute };
