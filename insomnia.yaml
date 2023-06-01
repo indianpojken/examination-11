@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2023-06-01T06:06:53.729Z
+__export_date: 2023-06-01T08:18:11.235Z
 __export_source: insomnia.desktop.app:v2023.2.2
 resources:
   - _id: req_a21e573f758a46bdba7512851a56fe10
@@ -34,9 +34,9 @@ resources:
     _type: workspace
   - _id: req_3aadc790898e4832a1d194b0c9d7464f
     parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
-    modified: 1685597723433
+    modified: 1685607398457
     created: 1685597512080
-    url: localhost:8000/api/bookings?from=2022-05-01&to=2028-08-01
+    url: localhost:8000/api/bookings?from=2023-05-01&to=2023-08-01
     name: Bookings - from and to
     description: ""
     method: GET
@@ -55,9 +55,9 @@ resources:
     _type: request
   - _id: req_7c24e1902f9e42b194653d7597a5a77a
     parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
-    modified: 1685599334282
+    modified: 1685607353076
     created: 1685597458379
-    url: localhost:8000/api/bookings?from=2029-05-01
+    url: localhost:8000/api/bookings?from=2023-06-01
     name: Bookings - from
     description: ""
     method: GET
@@ -76,9 +76,9 @@ resources:
     _type: request
   - _id: req_ba67343653c24580be34e33537d3fdc0
     parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
-    modified: 1685597741926
+    modified: 1685607331641
     created: 1685597471166
-    url: localhost:8000/api/bookings?to=2028-05-01
+    url: localhost:8000/api/bookings?to=2024-05-25
     name: Bookings - to
     description: ""
     method: GET
@@ -97,7 +97,7 @@ resources:
     _type: request
   - _id: req_20de826a5be64784bad234206a4351fc
     parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
-    modified: 1685599362731
+    modified: 1685607432447
     created: 1685496387960
     url: localhost:8000/api/bookings
     name: Book
@@ -108,9 +108,9 @@ resources:
       text: |-
         {
         	"email":"fredrik@gmail.com",
-        	"dateTime": "2029-06-01 19:30",
+        	"dateTime": "2024-06-01 19:30",
         	"players": 2,	
-        	"lanes": 4,
+        	"lanes": 1,
         	"shoeSizes": [40, 41]
         }
     parameters: []
@@ -129,9 +129,9 @@ resources:
     _type: request
   - _id: req_26f94a7ece8848a6a922f38c78e98df8
     parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
-    modified: 1685599400059
+    modified: 1685607469291
     created: 1685526247904
-    url: localhost:8000/api/bookings/5RYKFV
+    url: localhost:8000/api/bookings/0BTI2M
     name: Edit booking
     description: ""
     method: PUT
@@ -140,10 +140,10 @@ resources:
       text: |-
         {
         	"email":"fredrik@gmail.com",
-        	"dateTime": "2029-06-01 16:00",
-        	"players": 2,
-        	"lanes": 1,
-        	"shoeSizes": [40, 41]
+        	"dateTime": "2026-06-02 16:00",
+        	"players": 4,
+        	"lanes": 2,
+        	"shoeSizes": [40, 41, 44.5, 46]
         }
     parameters: []
     headers:
@@ -182,9 +182,9 @@ resources:
     _type: request
   - _id: req_35a76a56c34748ccb64f460fd920caba
     parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
-    modified: 1685530257538
+    modified: 1685607411081
     created: 1685530058420
-    url: localhost:8000/api/bookings/TUEF88
+    url: localhost:8000/api/bookings/041NEE
     name: Remove booking
     description: ""
     method: DELETE

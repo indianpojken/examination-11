@@ -44,7 +44,7 @@ export const book = z
   )
   .transform((data) => data.body);
 
-export const listOptions = z.object({
+export const schedule = z.object({
   query: z
     .object({
       from: z

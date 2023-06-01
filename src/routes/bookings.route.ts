@@ -8,7 +8,7 @@ export const router = Router();
 
 router.get(
   '/',
-  validationMiddleware.validate(bookingsValidation.listOptions),
+  validationMiddleware.validate(bookingsValidation.schedule),
   bookingsController.schedule
 );
 
