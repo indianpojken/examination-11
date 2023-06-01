@@ -50,7 +50,7 @@ export async function createBooking(
   booking: z.infer<typeof bookingsValidation.book>
 ): Promise<Booking> {
   const from = dayjs(booking.dateTime).toDate();
-  const to = dayjs(booking.dateTime).add(PLAY_TIME, 'm').toDate();
+  const to = dayjs(booking.dateTime).add(PLAY_TIME, 'minute').toDate();
 
   const availableLanes = await getAvailableLanes(from, to);
 
@@ -107,7 +107,9 @@ export async function getBookingSchedule(from?: string, to?: string) {
     },
   };
 
-  const bookings = await bookingModel.find(from || to ? query : {});
+  const bookings = await bookingModel
+    .find(from || to ? query : {})
+    .sort({ 'date.from': 'ascending' });
 
   return lanes.map((lane) => ({
     lane: lane,
