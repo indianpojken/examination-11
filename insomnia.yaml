@@ -1,0 +1,229 @@
+_type: export
+__export_format: 4
+__export_date: 2023-06-01T06:06:53.729Z
+__export_source: insomnia.desktop.app:v2023.2.2
+resources:
+  - _id: req_a21e573f758a46bdba7512851a56fe10
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685597619698
+    created: 1685537639334
+    url: localhost:8000/api/bookings
+    name: Bookings
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685537639334
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    parentId: null
+    modified: 1685599580209
+    created: 1685496385262
+    name: K.Äglan API
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_3aadc790898e4832a1d194b0c9d7464f
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685597723433
+    created: 1685597512080
+    url: localhost:8000/api/bookings?from=2022-05-01&to=2028-08-01
+    name: Bookings - from and to
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685527326490.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7c24e1902f9e42b194653d7597a5a77a
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685599334282
+    created: 1685597458379
+    url: localhost:8000/api/bookings?from=2029-05-01
+    name: Bookings - from
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685517013647
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ba67343653c24580be34e33537d3fdc0
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685597741926
+    created: 1685597471166
+    url: localhost:8000/api/bookings?to=2028-05-01
+    name: Bookings - to
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1685506700803.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_20de826a5be64784bad234206a4351fc
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685599362731
+    created: 1685496387960
+    url: localhost:8000/api/bookings
+    name: Book
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"fredrik@gmail.com",
+        	"dateTime": "2029-06-01 19:30",
+        	"players": 2,	
+        	"lanes": 4,
+        	"shoeSizes": [40, 41]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1685496387960
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_26f94a7ece8848a6a922f38c78e98df8
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685599400059
+    created: 1685526247904
+    url: localhost:8000/api/bookings/5RYKFV
+    name: Edit booking
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"fredrik@gmail.com",
+        	"dateTime": "2029-06-01 16:00",
+        	"players": 2,
+        	"lanes": 1,
+        	"shoeSizes": [40, 41]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1684672218285
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fa3f2a72a5004fc9a4a2f482eec07439
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685597772320
+    created: 1685528856147
+    url: localhost:8000/api/bookings/WXPFS1
+    name: View booking
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1684672218235
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_35a76a56c34748ccb64f460fd920caba
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685530257538
+    created: 1685530058420
+    url: localhost:8000/api/bookings/TUEF88
+    name: Remove booking
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1684260133422.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_1fa92964caf595a2244983c0ed0c0aebc590c1d3
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685496385264
+    created: 1685496385264
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1685496385264
+    _type: environment
+  - _id: jar_1fa92964caf595a2244983c0ed0c0aebc590c1d3
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685496385265
+    created: 1685496385265
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_87d6a3c81bde49f3b5bca71c8bd291af
+    parentId: wrk_8494eb5e094946e1bae1f3da99a5dc2e
+    modified: 1685496385262
+    created: 1685496385262
+    fileName: My Collection
+    contents: ""
+    contentType: yaml
+    _type: api_spec

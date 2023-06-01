@@ -48,8 +48,8 @@ export const view = controller(async (request, response) => {
         number: booking.bookingNumber,
         email: booking.email,
         date: {
-          from: dayjs(booking.date.from).format('YYYY/MM/DD HH:mm'),
-          to: dayjs(booking.date.to).format('YYYY/MM/DD HH:mm'),
+          from: dayjs(booking.date.from).format('YYYY-MM-DD HH:mm'),
+          to: dayjs(booking.date.to).format('YYYY-MM-DD HH:mm'),
         },
         players: booking.players,
         shoeSizes: booking.shoeSizes,
@@ -68,5 +68,28 @@ export const remove = controller(async (request, response) => {
   response.status(200).send({
     status: 'success',
     data: null,
+  });
+});
+
+export const schedule = controller(async (request, response) => {
+  const from = request.query.from as string;
+  const to = request.query.to as string;
+
+  const schedule = await bookingsService.getBookingSchedule(from, to);
+
+  response.status(200).send({
+    status: 'success',
+    data: {
+      schedule: schedule.map((item) => ({
+        lane: `#${item.lane.number}`,
+        bookings: item.bookings.map((booking) => ({
+          number: booking.bookingNumber,
+          date: {
+            from: dayjs(booking.date.from).format('YYYY-MM-DD HH:mm'),
+            to: dayjs(booking.date.to).format('YYYY-MM-DD HH:mm'),
+          },
+        })),
+      })),
+    },
   });
 });

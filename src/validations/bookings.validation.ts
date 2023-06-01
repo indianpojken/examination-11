@@ -1,4 +1,4 @@
-import { ZodSchema, z } from 'zod';
+import { z } from 'zod';
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -13,8 +13,8 @@ export const book = z
       email: z.string().email(),
       dateTime: z
         .string() // the refines should be replaced with a superRefine
-        .refine((data) => dayjs(data, 'YYYY/MM/DD HH:mm', true).isValid(), {
-          message: `Please use the following format: 'YYYY/MM/DD HH:mm'`,
+        .refine((data) => dayjs(data, 'YYYY-MM-DD HH:mm', true).isValid(), {
+          message: `Please use the following format: 'YYYY-MM-DD HH:mm'`,
         })
         .refine((data) => dayjs(data).minute() % 30 === 0, {
           message: `Only whole and half-hours are allowed`,
@@ -43,3 +43,22 @@ export const book = z
     }
   )
   .transform((data) => data.body);
+
+export const listOptions = z.object({
+  query: z
+    .object({
+      from: z
+        .string()
+        .refine((data) => dayjs(data, 'YYYY-MM-DD', true).isValid(), {
+          message: `Please use the following format: 'YYYY-MM-DD'`,
+        })
+        .optional(),
+      to: z
+        .string()
+        .refine((data) => dayjs(data, 'YYYY-MM-DD', true).isValid(), {
+          message: `Please use the following format: 'YYYY-MM-DD'`,
+        })
+        .optional(),
+    })
+    .optional(),
+});

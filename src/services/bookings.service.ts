@@ -20,9 +20,9 @@ function calculateTotal(players: number, lanes: number) {
   return playerCost + laneCost;
 }
 
-async function availableLanes(from: Date, to: Date) {
+async function getAvailableLanes(from: Date, to: Date) {
   const bookings = await bookingModel
-    .find<Booking>({
+    .find({
       $or: [
         { 'date.from': { $gte: from, $lt: to } },
         { 'date.to': { $gt: from, $lt: to } },
@@ -32,7 +32,7 @@ async function availableLanes(from: Date, to: Date) {
 
   const occupiedLanes = bookings.flatMap((booking) => booking.lanes);
 
-  return await laneModel.find<Lane>({ _id: { $nin: occupiedLanes } });
+  return await laneModel.find({ _id: { $nin: occupiedLanes } });
 }
 
 export async function getBookingByNumber(bookingNumber: string) {
@@ -52,9 +52,9 @@ export async function createBooking(
   const from = dayjs(booking.dateTime).toDate();
   const to = dayjs(booking.dateTime).add(PLAY_TIME, 'm').toDate();
 
-  const possibleLanes = await availableLanes(from, to);
+  const availableLanes = await getAvailableLanes(from, to);
 
-  if (possibleLanes.length < booking.lanes) {
+  if (availableLanes.length < booking.lanes) {
     throw new ApiError(409, {
       message: 'Insufficient lanes available',
     });
@@ -66,7 +66,7 @@ export async function createBooking(
     players: booking.players,
     shoeSizes: booking.shoeSizes,
     total: calculateTotal(booking.players, booking.lanes),
-    lanes: possibleLanes.slice(0, booking.lanes),
+    lanes: availableLanes.slice(0, booking.lanes),
   };
 }
 
@@ -93,4 +93,24 @@ export async function editBooking(
 export async function removeBooking(bookingNumber: string) {
   await getBookingByNumber(bookingNumber);
   return await bookingModel.deleteOne({ bookingNumber });
+}
+
+export async function getBookingSchedule(from?: string, to?: string) {
+  const lanes = await laneModel.find();
+
+  const query = {
+    'date.from': {
+      ...(from && { $gte: dayjs(from).toDate() }),
+      ...(to && {
+        $lte: dayjs(to).set('hour', 23).set('minute', 59).toDate(),
+      }),
+    },
+  };
+
+  const bookings = await bookingModel.find(from || to ? query : {});
+
+  return lanes.map((lane) => ({
+    lane: lane,
+    bookings: bookings.filter((booking) => booking.lanes.includes(lane.id)),
+  }));
 }

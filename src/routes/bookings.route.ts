@@ -6,6 +6,12 @@ import { bookingsValidation } from '../validations/mod';
 
 export const router = Router();
 
+router.get(
+  '/',
+  validationMiddleware.validate(bookingsValidation.listOptions),
+  bookingsController.schedule
+);
+
 router.post(
   '/',
   validationMiddleware.validate(bookingsValidation.book),

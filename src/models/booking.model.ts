@@ -18,7 +18,9 @@ export interface Booking {
 const bookingSchema = new mongoose.Schema<Booking>({
   bookingNumber: {
     type: String,
-    default: customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)(),
+    default: () => {
+      return customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)();
+    },
   },
   email: { type: String, required: true },
   date: {
