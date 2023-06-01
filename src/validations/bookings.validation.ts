@@ -14,7 +14,7 @@ export const book = z
       dateTime: z
         .string() // the refines should be replaced with a superRefine
         .refine((data) => dayjs(data, 'YYYY-MM-DD HH:mm', true).isValid(), {
-          message: `Please use the following format: 'YYYY-MM-DD HH:mm'`,
+          message: `Please use the following format: YYYY-MM-DD HH:mm`,
         })
         .refine((data) => dayjs(data).minute() % 30 === 0, {
           message: `Only whole and half-hours are allowed`,
@@ -35,11 +35,15 @@ export const book = z
     path: ['body', 'shoeSizes'],
     message: `Array must contain the same amount of element(s) as the number of players`,
   })
+  .refine((data) => data.body.lanes <= data.body.players, {
+    path: ['body', 'lanes'],
+    message: `Number must be less than or equal to the number of players`,
+  })
   .refine(
     (data) => data.body.players <= MAX_PLAYERS_PER_LANE * data.body.lanes,
     {
       path: ['body', 'players'],
-      message: `The number of players exceeds the maximum player count (${MAX_PLAYERS_PER_LANE}) per lane.`,
+      message: `Number exceeds the maximum player count (${MAX_PLAYERS_PER_LANE}) per lane`,
     }
   )
   .transform((data) => data.body);
@@ -50,13 +54,13 @@ export const schedule = z.object({
       from: z
         .string()
         .refine((data) => dayjs(data, 'YYYY-MM-DD', true).isValid(), {
-          message: `Please use the following format: 'YYYY-MM-DD'`,
+          message: `Please use the following format: YYYY-MM-DD`,
         })
         .optional(),
       to: z
         .string()
         .refine((data) => dayjs(data, 'YYYY-MM-DD', true).isValid(), {
-          message: `Please use the following format: 'YYYY-MM-DD'`,
+          message: `Please use the following format: YYYY-MM-DD`,
         })
         .optional(),
     })
