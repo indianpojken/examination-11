@@ -81,7 +81,7 @@ export async function editBooking(
   booking: z.infer<typeof bookingsValidation.book>
 ) {
   await getBookingByNumber(bookingNumber); // lots of duplicate querys. Meh.
-  await bookingModel.findOneAndUpdate({ bookingNumber }, { lanes: [] });
+  await bookingModel.updateOne({ bookingNumber }, { lanes: [] });
 
   return await bookingModel.findOneAndUpdate(
     { bookingNumber },
