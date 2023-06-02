@@ -46,7 +46,7 @@ export async function getBookingByNumber(bookingNumber: string) {
     );
 }
 
-export async function createBooking(
+export async function generateBooking(
   booking: z.infer<typeof bookingsValidation.book>
 ): Promise<Booking> {
   const from = dayjs(booking.dateTime).toDate();
@@ -70,13 +70,13 @@ export async function createBooking(
   };
 }
 
-export async function addBooking(
+export async function createBooking(
   booking: z.infer<typeof bookingsValidation.book>
 ) {
-  return await bookingModel.create<Booking>(await createBooking(booking));
+  return await bookingModel.create<Booking>(await generateBooking(booking));
 }
 
-export async function editBooking(
+export async function updateBooking(
   bookingNumber: string,
   booking: z.infer<typeof bookingsValidation.book>
 ) {
@@ -85,7 +85,7 @@ export async function editBooking(
 
   return await bookingModel.findOneAndUpdate(
     { bookingNumber },
-    await createBooking(booking),
+    await generateBooking(booking),
     { new: true }
   );
 }

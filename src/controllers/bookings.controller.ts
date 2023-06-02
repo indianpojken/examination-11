@@ -3,40 +3,7 @@ import dayjs from 'dayjs';
 import { controller } from '../utils/controller.util';
 import { bookingsService } from '../services/mod';
 
-export const book = controller(async (request, response) => {
-  const data = request.body;
-
-  const booking = await bookingsService.addBooking(data);
-
-  response.status(201).send({
-    status: 'success',
-    data: {
-      booking: {
-        number: booking.bookingNumber,
-        total: booking.total,
-      },
-    },
-  });
-});
-
-export const edit = controller(async (request, response) => {
-  const data = request.body;
-  const { bookingNumber } = request.params;
-
-  const booking = await bookingsService.editBooking(bookingNumber, data);
-
-  response.status(201).send({
-    status: 'success',
-    data: {
-      booking: {
-        number: booking?.bookingNumber,
-        total: booking?.total,
-      },
-    },
-  });
-});
-
-export const view = controller(async (request, response) => {
+export const getBooking = controller(async (request, response) => {
   const { bookingNumber } = request.params;
 
   const booking = await bookingsService.getBookingByNumber(bookingNumber);
@@ -60,7 +27,40 @@ export const view = controller(async (request, response) => {
   });
 });
 
-export const remove = controller(async (request, response) => {
+export const addBooking = controller(async (request, response) => {
+  const data = request.body;
+
+  const booking = await bookingsService.createBooking(data);
+
+  response.status(201).send({
+    status: 'success',
+    data: {
+      booking: {
+        number: booking.bookingNumber,
+        total: booking.total,
+      },
+    },
+  });
+});
+
+export const editBooking = controller(async (request, response) => {
+  const data = request.body;
+  const { bookingNumber } = request.params;
+
+  const booking = await bookingsService.updateBooking(bookingNumber, data);
+
+  response.status(201).send({
+    status: 'success',
+    data: {
+      booking: {
+        number: booking?.bookingNumber,
+        total: booking?.total,
+      },
+    },
+  });
+});
+
+export const removeBooking = controller(async (request, response) => {
   const { bookingNumber } = request.params;
 
   await bookingsService.removeBooking(bookingNumber);
@@ -71,7 +71,7 @@ export const remove = controller(async (request, response) => {
   });
 });
 
-export const schedule = controller(async (request, response) => {
+export const getBookingSchedule = controller(async (request, response) => {
   const from = request.query.from as string;
   const to = request.query.to as string;
 

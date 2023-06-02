@@ -6,26 +6,26 @@ import { bookingsValidation } from '../validations/mod';
 
 export const router = Router();
 
-router.get(
-  '/',
-  validationMiddleware.validate(bookingsValidation.schedule),
-  bookingsController.schedule
-);
+router.get('/:bookingNumber', bookingsController.getBooking);
 
 router.post(
   '/',
   validationMiddleware.validate(bookingsValidation.book),
-  bookingsController.book
+  bookingsController.addBooking
 );
 
 router.put(
   '/:bookingNumber',
   validationMiddleware.validate(bookingsValidation.book),
-  bookingsController.edit
+  bookingsController.editBooking
 );
 
-router.get('/:bookingNumber', bookingsController.view);
+router.delete('/:bookingNumber', bookingsController.removeBooking);
 
-router.delete('/:bookingNumber', bookingsController.remove);
+router.get(
+  '/',
+  validationMiddleware.validate(bookingsValidation.schedule),
+  bookingsController.getBookingSchedule
+);
 
 export { router as bookingsRoute };
